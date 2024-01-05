@@ -1,0 +1,22 @@
+{% extends './base.html' %}
+{% block content %}
+
+<h1>お店一覧</h1>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>カテゴリー</th>
+        <th>店名</th>
+        <th>住所</th>
+    </tr>
+    {% for restaurant in restaurant_list %}
+    <tr>
+        <td>{{ restaurant.category.name }}</td>
+        <td><a href="#">{{restaurant.name}}</a></td>
+        <td>{{ restaurant.address }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endblock %}

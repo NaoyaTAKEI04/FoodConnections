@@ -8,6 +8,9 @@ class Category(models.Model):
         on_delete=models.CASCADE,
     )
 
+    def __str__(self):
+        return self.name
+
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length = 100)
