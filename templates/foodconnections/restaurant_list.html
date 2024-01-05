@@ -12,7 +12,7 @@
     {% for restaurant in restaurant_list %}
     <tr>
         <td>{{ restaurant.category.name }}</td>
-        <td><a href="#">{{restaurant.name}}</a></td>
+        <td><a href="{% url 'foodconnections:detail' restaurant.pk %}">{{restaurant.name}}</a></td>
         <td>{{ restaurant.address }}</td>
     </tr>
     {% endfor %}
