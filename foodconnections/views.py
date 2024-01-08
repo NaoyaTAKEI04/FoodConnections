@@ -32,5 +32,9 @@ class UpdateView(generic.edit.UpdateView):
     template_name = 'foodconnections/restaurant_form.html'
     context_object_name = 'restaurant'
 
+    def form_valid(self, form):
+        messages.success(self.request, '編集内容が反映されました。')
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse_lazy('foodconnections:detail', kwargs={'pk':self.object.pk})
