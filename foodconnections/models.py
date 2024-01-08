@@ -22,6 +22,7 @@ class Restaurant(models.Model):
         Category,
         on_delete=models.PROTECT,
     )
+    image = models.ImageField(upload_to='restaurant_images/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

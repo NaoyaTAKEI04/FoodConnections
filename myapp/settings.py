@@ -122,6 +122,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -129,3 +135,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #ユーザーモデルの定義
 AUTH_USER_MODEL = 'users.CustomUser'
+
+#Djangoが画像を読み込むための設定
+MEDIA_URL = '/media/'
+#画像の保存先の指定
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
