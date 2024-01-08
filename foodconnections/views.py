@@ -25,3 +25,12 @@ class CreateView(generic.edit.CreateView):
         restaurant_name = form.cleaned_data['name']
         messages.success(self.request, f'"{restaurant_name}"を登録しました。')
         return super().form_valid(form)
+    
+class UpdateView(generic.edit.UpdateView):
+    model = Restaurant
+    fields = '__all__'
+    template_name = 'foodconnections/restaurant_form.html'
+    context_object_name = 'restaurant'
+
+    def get_success_url(self):
+        return reverse_lazy('foodconnections:detail', kwargs={'pk':self.object.pk})
