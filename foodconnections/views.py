@@ -1,5 +1,5 @@
 from django.forms.models import BaseModelForm
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.views import generic
 from .models import Category, Restaurant
 from django.urls import reverse_lazy
@@ -38,3 +38,15 @@ class UpdateView(generic.edit.UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('foodconnections:detail', kwargs={'pk':self.object.pk})
+
+class DeleteView(generic.DeleteView):
+    model = Restaurant
+    template_name = 'foodconnections/restaurant_comfirm_delete.html'
+    context_object_name = 'restaurant'
+    success_url = reverse_lazy('foodconnections:index')
+
+    def delete(self, request, *args, **kwargs):
+        delete_instance = self.get_object()
+        shop_name = delete_instance.name
+        messages.success(self.request, f'"{ shop_name }"を削除しました。')
+        return super().delete(request, *args, **kwargs)

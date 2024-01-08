@@ -2,6 +2,14 @@
 {% load static %}
 {% block content %}
 
+{% if messages %}
+    {% for messeage in messages %}
+        <div class="messeage">
+            <p class="alert {% if messeage.tags %} alert-{{messeage.tags}} {% endif %}">{{ messeage }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
 <h1>お店一覧</h1>
 
 <div class="container">
