@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('foodconnections/', include('foodconnections.urls')),
     path('', RedirectView.as_view(url='/foodconnections/')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 #開発環境での画像ファイルにアクセスするためのURLを生成
