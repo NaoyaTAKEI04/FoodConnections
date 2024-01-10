@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth', 
     'allauth.account', 
     'allauth.socialaccount',
+    'crispy_forms', # フォームに対するBootstrapの適用
 ]
 
 SITE_ID = 1
@@ -157,9 +158,11 @@ ACCOUNT_USERNAME_REQUIRED = True # サインアップ（ユーザー登録）の
 ACCOUNT_EMAIL_REQUIRED = True # サインアップ（ユーザー登録）の時にメールアドレスを尋ねる
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # メール検証を必須とする
 
-LOGIN_URL = '/account/login/' # ログインURLの設定
+LOGIN_URL = '/accounts/login/' # ログインURLの設定
 LOGIN_REDIRECT_URL = '/foodconnections/' # ログイン後のリダイレクト先
-ACCOUNT_LOGOUT_REDIRECT_URL = '/account/login/' # ログアウト後のリダイレクト先
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/' # ログアウト後のリダイレクト先
 ACCOUNT_LOGOUT_ON_GET = True # ログアウトをクリックしたら確認画面を経由しないで直接ログアウトする
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # メール配信をコンソールに返す設定
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
