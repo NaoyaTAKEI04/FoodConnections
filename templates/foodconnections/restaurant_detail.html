@@ -24,6 +24,31 @@
     </iframe>
 </div>
 
+<!-- レビューの表示 -->
+<h2>この店舗のレビュー</h2>
+{% if reviews %}
+<p>平均評価: {{ average_score }} / 5.0  ({{ total_reviews }}件)</p>
+<ul>
+    {% for review in reviews %}
+        <li>
+            <p>タイトル: {{review.title}}</p>
+            <p>{{ review.user.username }} さんの評価: {{ review.score }}</p>
+            <p>コメント: {{ review.comment }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>口コミはまだありません。</p>
+{% endif %}
+
+<!-- レビューの投稿フォーム -->
+<h2>レビューを投稿する</h2>
+<form method="post" action="{% url 'foodconnections:review_create' restaurant.pk %}">
+{% csrf_token %}
+{{ review_form.as_p }}
+<button type="submit">投稿する</button>
+</form>
+
 <a href="{% url 'foodconnections:index' %}" class="btn btn-primary">一覧</a>
 <a href="{% url 'foodconnections:update' restaurant.pk %}" class="btn btn-primary">編集</a>
 <a href="{% url 'foodconnections:delete' restaurant.pk %}" class="btn btn-secondary">削除</a>
