@@ -25,6 +25,8 @@ class Restaurant(models.Model):
         verbose_name='カテゴリー',
     )
     image = models.ImageField(verbose_name='画像', upload_to='restaurant_images/', blank=True, null=True)
+    catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=True, null=True)
+    comment = models.TextField(verbose_name='コメント', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

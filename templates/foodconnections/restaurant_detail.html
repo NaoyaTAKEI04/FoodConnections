@@ -1,4 +1,5 @@
 {% extends './base.html' %}
+{% load static %}
 {% block content %}
 
 {% if messages %}
@@ -11,9 +12,15 @@
 
 <h1>{{ restaurant.name }}</h1>
 
+{% if restaurant.image %}
+    <img src="{{ restaurant.image.url }}" class="card-img-top"  width=100% height="400" alt="{{ restaurant.name }}">
+{% else %}
+    <img src="{% static 'foodconnections/images/no_image.png' %}" width=100% height="400" alt="No Image">
+{% endif %}
+
 <div>
-    <p>{{ restaurant.category.name }}</p>
-    <p>{{ restaurant.address }}</p>
+    <p>カテゴリー：{{ restaurant.category.name }}</p>
+    <p>住所：{{ restaurant.address }}</p>
 
     <iframe 
       id="map" 
@@ -24,8 +31,11 @@
     </iframe>
 </div>
 
+<h4>{{ restaurant.catchphrase }}</h4>
+<p>{{ restaurant.comment }}</p>
+
 <!-- レビューの表示 -->
-<h2>この店舗のレビュー</h2>
+<h4>この店舗のレビュー</h4>
 {% if reviews %}
 <p>平均評価: {{ average_score }} / 5.0  ({{ total_reviews }}件)</p>
 <ul>
@@ -42,7 +52,7 @@
 {% endif %}
 
 <!-- レビューの投稿フォーム -->
-<h2>レビューを投稿する</h2>
+<h4>レビューを投稿する</h4>
 <form method="post" action="{% url 'foodconnections:review_create' restaurant.pk %}">
 {% csrf_token %}
 {{ review_form.as_p }}

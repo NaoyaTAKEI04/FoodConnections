@@ -27,8 +27,8 @@ class CategoryListView(View):
     template_name = 'foodconnections/category_list.html'
 
     def get(self, request, category_id, *args, **kwargs):
-        category = get_object_or_404(Category, id=category_id) # カテゴリに属する飲食店一覧を取得
-        restaurants = Restaurant.objects.filter(category=category)
+        category = get_object_or_404(Category, id=category_id) #該当するカテゴリを代入
+        restaurants = Restaurant.objects.filter(category=category) # カテゴリに属する飲食店一覧を取得
         context = {
             'category':category,
             'restaurants':restaurants,
