@@ -7,6 +7,7 @@ class Category(models.Model):
         CustomUser,
         on_delete=models.CASCADE,
     )
+    image = models.ImageField(verbose_name='画像', upload_to='category_images/', blank=True, null=True)
 
     def __str__(self):
         return self.name

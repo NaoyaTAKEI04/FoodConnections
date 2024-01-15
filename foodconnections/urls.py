@@ -4,7 +4,9 @@ from . import views
 app_name = 'foodconnections'
 
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
+    path('', views.TopPageView.as_view(), name='top_page'),
+    path('list/', views.ListView.as_view(), name='list'),
+    path('<int:category_id>/category/', views.CategoryListView.as_view(), name='category_list'),
     path('<int:pk>/detail/', views.DetailView.as_view(), name='detail'),
     path('create/', views.CreateView.as_view(), name='create'),
     path('<int:pk>/update/', views.UpdateView.as_view(), name='update'),

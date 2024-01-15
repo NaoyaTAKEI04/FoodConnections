@@ -1,18 +1,39 @@
-from django.views import generic
+from django.views import generic, View
 from .models import Category, Restaurant, Review
 from .forms import ReviewForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Avg
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 
+class TopPageView(View):
+    template_name = 'foodconnections/top_page.html'
 
-class IndexView(generic.ListView):
+    def get(self, request, *args, **kwargs):
+        categories = Category.objects.all() # カテゴリ一覧を取得
+        context = {
+            'categories':categories
+        }
+        return render(request, self.template_name, context)
+
+class ListView(generic.ListView):
     model = Restaurant
     template_name = 'foodconnections/restaurant_list.html'
     context_object_name = 'restaurant_list'
+
+class CategoryListView(View):
+    template_name = 'foodconnections/category_list.html'
+
+    def get(self, request, category_id, *args, **kwargs):
+        category = get_object_or_404(Category, id=category_id) # カテゴリに属する飲食店一覧を取得
+        restaurants = Restaurant.objects.filter(category=category)
+        context = {
+            'category':category,
+            'restaurants':restaurants,
+        }
+        return render(request, self.template_name, context)
 
 class DetailView(generic.DetailView):
     model = Restaurant
@@ -53,7 +74,7 @@ class CreateView(LoginRequiredMixin, generic.edit.CreateView):
     model = Restaurant
     fields = ['name','address','category','image']
     template_name = 'foodconnections/restaurant_form.html'
-    success_url = reverse_lazy('foodconnections:index')
+    success_url = reverse_lazy('foodconnections:top_page')
 
     def form_valid(self, form):
         form.instance.author = self.request.user #ログインしているユーザー名を投稿者にする
@@ -78,7 +99,7 @@ class DeleteView(generic.DeleteView):
     model = Restaurant
     template_name = 'foodconnections/restaurant_comfirm_delete.html'
     context_object_name = 'restaurant'
-    success_url = reverse_lazy('foodconnections:index')
+    success_url = reverse_lazy('foodconnections:top_page')
 
     def delete(self, request, *args, **kwargs):
         delete_instance = self.get_object()

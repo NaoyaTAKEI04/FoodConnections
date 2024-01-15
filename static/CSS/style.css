@@ -1,3 +1,22 @@
-img {
-  object-fit: cover; /* 画像のトリミング */
+/* 画像のトリミング（一覧の店舗画像） */
+.main_image {
+  object-fit: cover; 
+}
+
+/* 文字を中央に揃える（カテゴリー画像） */
+.card-img-overlay {
+  padding: 0;
+  top: calc(50% - 0.5rem);
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.card {
+  background-color:black;
+  display:inline-block;
+}
+.card-img{
+  opacity: 0.5;
+  display:block;
 }
