@@ -14,7 +14,7 @@ class Category(models.Model):
 class Restaurant(models.Model):
     name = models.CharField(verbose_name='店名', max_length=100)
     address = models.CharField(verbose_name='住所', max_length = 100)
-    auther = models.ForeignKey(
+    author = models.ForeignKey(
         CustomUser,
         on_delete=models.CASCADE,
     )

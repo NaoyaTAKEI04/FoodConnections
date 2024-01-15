@@ -56,10 +56,11 @@ class CreateView(LoginRequiredMixin, generic.edit.CreateView):
     success_url = reverse_lazy('foodconnections:index')
 
     def form_valid(self, form):
-        restaurant_name = form.cleaned_data['name']
-        messages.success(self.request, f'"{restaurant_name}"を登録しました。')
-        return super().form_valid(form)
-    
+        form.instance.author = self.request.user #ログインしているユーザー名を投稿者にする
+        restaurant_name = form.cleaned_data['name'] #フォームに入力された店名を代入
+        messages.success(self.request, f'"{restaurant_name}"を登録しました。') #新規作成完了時のメッセージ
+        return super(CreateView, self).form_valid(form)
+
 class UpdateView(generic.edit.UpdateView):
     model = Restaurant
     fields = ['name','address','category','image']
