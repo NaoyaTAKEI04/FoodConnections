@@ -46,7 +46,12 @@
 <form method="post" action="{% url 'foodconnections:review_create' restaurant.pk %}">
 {% csrf_token %}
 {{ review_form.as_p }}
-<button type="submit">投稿する</button>
+{% if user.is_authenticated %}
+    <button type="submit">投稿する</button>
+{% else %}
+    <button disabled type="submit">投稿する</button>
+    <p>レビュー投稿にはログインが必要です。</p>
+{% endif %}
 </form>
 
 <a href="{% url 'foodconnections:index' %}" class="btn btn-primary">一覧</a>
