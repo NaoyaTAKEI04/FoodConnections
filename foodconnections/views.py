@@ -12,9 +12,11 @@ class TopPageView(View):
     template_name = 'foodconnections/top_page.html'
 
     def get(self, request, *args, **kwargs):
+        recommends = Restaurant.objects.filter(recommend=True)
         categories = Category.objects.all() # カテゴリ一覧を取得
         context = {
-            'categories':categories
+            'recommends':recommends,
+            'categories':categories,
         }
         return render(request, self.template_name, context)
 

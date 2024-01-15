@@ -14,6 +14,7 @@ class Category(models.Model):
 
 class Restaurant(models.Model):
     name = models.CharField(verbose_name='店名', max_length=100)
+    ruby = models.CharField(verbose_name='ふりがな', max_length=100, blank=True, null=True)
     address = models.CharField(verbose_name='住所', max_length = 100)
     author = models.ForeignKey(
         CustomUser,
@@ -27,6 +28,7 @@ class Restaurant(models.Model):
     image = models.ImageField(verbose_name='画像', upload_to='restaurant_images/', blank=True, null=True)
     catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=True, null=True)
     comment = models.TextField(verbose_name='コメント', blank=True, null=True)
+    recommend = models.BooleanField(verbose_name='おすすめ店舗', default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
