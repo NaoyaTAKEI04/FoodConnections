@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'allauth.account', 
     'allauth.socialaccount',
     'crispy_forms', # フォームに対するBootstrapの適用
-    'widget_tweaks', #テンプレートタグ{}にBootstrapを適用
 ]
 
 SITE_ID = 1

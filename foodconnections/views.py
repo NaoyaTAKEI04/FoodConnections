@@ -42,12 +42,6 @@ class SearchResultsView(generic.ListView):
         context['search_form'] = search_form
         return context
 
-
-#class ListView(generic.ListView):
- #   model = Restaurant
-  #  template_name = 'foodconnections/restaurant_list.html'
-   # context_object_name = 'restaurant_list'
-
 class CategoryListView(View):
     template_name = 'foodconnections/category_list.html'
 
@@ -59,6 +53,18 @@ class CategoryListView(View):
             'restaurants':restaurants,
         }
         return render(request, self.template_name, context)
+    
+class MyPageView(LoginRequiredMixin, generic.TemplateView):
+    template_name = 'foodconnections/my_page.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        user_restaurants = Restaurant.objects.filter(author=user)
+        user_reviews = Review.objects.filter(user=user)
+        context['user_restaurants'] = user_restaurants
+        context['user_reviews'] = user_reviews
+        return context
 
 class DetailView(generic.DetailView):
     model = Restaurant
@@ -130,4 +136,15 @@ class DeleteView(generic.DeleteView):
         delete_instance = self.get_object()
         shop_name = delete_instance.name
         messages.success(self.request, f'"{ shop_name }"を削除しました。')
+        return super().delete(request, *args, **kwargs)
+    
+class ReviewDeleteView(generic.DeleteView):
+    model = Review
+    template_name = 'foodconnections/review_comfirm_delete.html'
+    context_object_name = 'review'
+    success_url = reverse_lazy('foodconnections:my_page')
+
+    def delete(self, request, *args, **kwargs):
+        delete_instance = self.get_object()
+        messages.success(self.request, 'レビューを削除しました。')
         return super().delete(request, *args, **kwargs)

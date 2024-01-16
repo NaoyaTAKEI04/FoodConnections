@@ -1,6 +1,8 @@
 {% extends './base.html' %}
+{% load static %}
 {% block content %}
 
+<!--リダイレクト後のメッセージ表示-->
 {% if messages %}
 <div class="messages">
     {% for messeage in messages %}
@@ -9,19 +11,14 @@
 </div>
 {% endif %}
 
+<!--検索フォーム-->
 <form method="get" action="{% url 'foodconnections:search_results' %}">
-    <div class="row">
-        <div class="col-10">
-            {{ search_form }}
-        </div>
-        <div class="col-2">
-            <button type="submit" class="btn btn-secondary my-2 my-sm-0">検索</button>
-        </div>
-    </div>
+    {{ search_form }}
+    <button type="submit" class="btn btn-secondary my-2 my-sm-0">検索</button>
 </form>
 
-<h1>ピックアップ</h1>
-<div class="container">
+<h1 class="mt-3">ピックアップ</h1>
+<div class="container mt-1">
     <div class="row">
         {% for recommend in recommends %}
         <div class="col-md-4 mb-4">
@@ -38,8 +35,8 @@
     </div>
 </div>
 
-<h1>カテゴリー</h1>
-<div class="container">
+<h1 class="mt-3">カテゴリー</h1>
+<div class="container mt-1">
     <div class="row">
         {% for category in categories %}
         <div class="col-md-4 mb-4">
@@ -57,8 +54,6 @@
 </div>
 
 
-<a href="{% url 'foodconnections:search_results' %}">全てのお店を見る</a>
-
-<a href="{% url 'foodconnections:create' %}">新規作成</a>
+<a href="{% url 'foodconnections:search_results' %}" class="mt-3">全てのお店を見る</a>
 
 {% endblock %}

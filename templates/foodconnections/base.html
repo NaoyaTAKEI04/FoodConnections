@@ -16,6 +16,7 @@
         <a class='navbar-brand' href='{% url "foodconnections:top_page" %}'>FoodConnections</a>
         <ul class="navbar-nav mr-md-2">
             {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'foodconnections:my_page' %}">マイページ</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a></li>
             {% else %}
                 <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">ログイン</a></li>
