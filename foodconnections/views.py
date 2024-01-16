@@ -1,9 +1,9 @@
 from django.views import generic, View
 from .models import Category, Restaurant, Review
-from .forms import ReviewForm
+from .forms import ReviewForm, SearchForm
 from django.urls import reverse_lazy
 from django.contrib import messages
-from django.db.models import Avg
+from django.db.models import Avg, Q
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -12,18 +12,41 @@ class TopPageView(View):
     template_name = 'foodconnections/top_page.html'
 
     def get(self, request, *args, **kwargs):
+        search_form = SearchForm()
         recommends = Restaurant.objects.filter(recommend=True)
         categories = Category.objects.all() # カテゴリ一覧を取得
         context = {
-            'recommends':recommends,
-            'categories':categories,
+            'search_form' : search_form,
+            'recommends' : recommends,
+            'categories' : categories,
         }
         return render(request, self.template_name, context)
 
-class ListView(generic.ListView):
+class SearchResultsView(generic.ListView):
     model = Restaurant
-    template_name = 'foodconnections/restaurant_list.html'
+    template_name = 'foodconnections/search_results.html'
     context_object_name = 'restaurant_list'
+
+    def get_queryset(self):
+        query = self.request.GET.get('query', '')
+        if query:
+            # 店名または住所のいずれかに一致するレストランを取得
+            return Restaurant.objects.filter(Q(name__icontains=query) | Q(address__icontains=query))
+        else:
+            return Restaurant.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        search_form = SearchForm()
+        context['query'] = self.request.GET.get('query', '')
+        context['search_form'] = search_form
+        return context
+
+
+#class ListView(generic.ListView):
+ #   model = Restaurant
+  #  template_name = 'foodconnections/restaurant_list.html'
+   # context_object_name = 'restaurant_list'
 
 class CategoryListView(View):
     template_name = 'foodconnections/category_list.html'

@@ -1,0 +1,60 @@
+{% extends './base.html' %}
+{% load static %}
+{% block content %}
+
+<!--リダイレクト後のメッセージ表示-->
+{% if messages %}
+    {% for messeage in messages %}
+        <div class="messeage">
+            <p class="alert {% if messeage.tags %} alert-{{messeage.tags}} {% endif %}">{{ messeage }}</p>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<!--検索フォーム-->
+<form method="get" action="{% url 'foodconnections:search_results' %}" >
+    <div class="row">
+        <div class="col-10 form-group">
+            {{ search_form }}
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-secondary my-2 my-sm-0">検索</button>
+        </div>
+    </div>
+</form>
+
+{% if query %}
+<h2>検索結果</h2>
+
+<p>検索ワード: {{ query }}</p>
+{% endif %}
+
+<h1>お店一覧</h1>
+{% if restaurant_list %}
+<div class="container">
+    <div class="row">
+        {% for restaurant in restaurant_list %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+            {% if restaurant.image %}
+                <img src="{{ restaurant.image.url }}" class="card-img-top"  width=100% height="200" alt="{{ restaurant.name }}">
+            {% else %}
+                <img src="{% static 'foodconnections/images/no_image.png' %}" width=100% height="200" alt="No Image">
+            {% endif %}
+                <div class="card-body">
+                    <h4 class="card-title">{{ restaurant.name }}</h4>
+                    <p class="card-text">{{ restaurant.category.name }}</p>
+                    <a href="{% url 'foodconnections:detail' restaurant.pk %}" class="btn btn-primary">詳細を見る</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<p>検索に一致するお店はありません。</p>
+{% endif %}
+
+<a href="{% url 'foodconnections:create' %}">新規作成</a>
+
+{% endblock %}

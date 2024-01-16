@@ -9,6 +9,17 @@
 </div>
 {% endif %}
 
+<form method="get" action="{% url 'foodconnections:search_results' %}">
+    <div class="row">
+        <div class="col-10">
+            {{ search_form }}
+        </div>
+        <div class="col-2">
+            <button type="submit" class="btn btn-secondary my-2 my-sm-0">検索</button>
+        </div>
+    </div>
+</form>
+
 <h1>ピックアップ</h1>
 <div class="container">
     <div class="row">
@@ -46,7 +57,7 @@
 </div>
 
 
-<a href="{% url 'foodconnections:list' %}">全てのお店を見る</a>
+<a href="{% url 'foodconnections:search_results' %}">全てのお店を見る</a>
 
 <a href="{% url 'foodconnections:create' %}">新規作成</a>
 
