@@ -13,15 +13,15 @@
 
 <h2>{{ user.username }}さんのマイページ</h2>
 
-<h3>作成したレストラン一覧</h3>
+<h3 class="mt-5">作成したレストラン一覧</h3>
 {% if user_restaurants %}
-    <table  class='table table-striped table-hover'>
+    <table  class='table table-striped table-hover mt-3'>
         <th>店名</th>
         <th>カテゴリー</th>
         <th>編集/削除</th>
         {% for restaurant in user_restaurants %}
         <tr>
-            <td>{{ restaurant.name }}</td>
+            <td><a href="{% url 'foodconnections:detail' pk=restaurant.pk %}">{{ restaurant.name }}</a></td>
             <td>{{ restaurant.category.name }}</td>
             <td>
             <a href="{% url 'foodconnections:update' pk=restaurant.pk %}" class="btn btn-primary">編集</a>
@@ -36,9 +36,9 @@
 
 <a href="{% url 'foodconnections:create' %}" class="btn btn-primary">新規作成</a>
 
-<h3>投稿したレビュー一覧</h3>
+<h3 class="mt-5">投稿したレビュー一覧</h3>
 {% if user_reviews %}
-    <table  class='table table-striped table-hover'>
+    <table  class='table table-striped table-hover mt-3'>
         <th>店名</th>
         <th>スコア</th>
         <th>コメント</th>

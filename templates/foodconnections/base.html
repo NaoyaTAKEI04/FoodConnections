@@ -12,21 +12,61 @@
     <style>body {padding-top: 80px;}</style>
 </head>
 <body>
-    <nav class='navbar navbar-expand-sm navbar-dark bg-dark fixed-top'>
-        <a class='navbar-brand' href='{% url "foodconnections:top_page" %}'>FoodConnections</a>
-        <ul class="navbar-nav mr-md-2">
-            {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'foodconnections:my_page' %}">マイページ</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a></li>
-            {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">ログイン</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">サインアップ</a></li>
-            {% endif %}
-        </ul>
-    </nav>
+    <header>
+        <nav class='navbar navbar-expand-sm navbar-dark bg-dark fixed-top'>
+            <a class='navbar-brand' href='{% url "foodconnections:top_page" %}'>FoodConnections</a>
+            <div class="collapse navbar-collapse justify-content-end">
+                <ul class="navbar-nav mr-md-2">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'foodconnections:my_page' %}">マイページ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_logout' %}">ログアウト</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_login' %}">ログイン</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account_signup' %}">サインアップ</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
     <div class='container'>
     {% block content %}
     {% endblock %}
     </div>
+    <footer class="text-center">
+        <nav class="navbar-dark bg-dark mt-5">
+            <ul class="nav justify-content-center py-5">
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="{% url 'foodconnections:top_page' %}">トップページ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-secondary" href="{% url 'foodconnections:search_results' %}">お店一覧</a>
+                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'foodconnections:my_page' %}">マイページ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'account_logout' %}">ログアウト</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'account_login' %}">ログイン</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-secondary" href="{% url 'account_signup' %}">サインアップ</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <small>&copy; 2024 FoodConnections.</small>
+        </nav>
+    </footer>
 </body>
 </html>
