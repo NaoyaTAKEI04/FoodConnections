@@ -2,3 +2,27 @@
 img {
   object-fit: cover; 
 }
+
+/* カルーセルの前後ボタンの幅とボタンスタイルを修正(top_page.html) */
+.carousel-control-next, .carousel-control-prev {
+  width: 4.5%;
+  min-width: 30px; /* 最小幅を設定することで、はみ出しを防ぐ */
+  background-color: black;
+}
+
+/* aタグの色を指定（カードのカルーセル内） */
+.carousel-inner a:link, 
+.carousel-inner a:visited, 
+.carousel-inner a:hover, 
+.carousel-inner a:active {
+  color: black;
+}
+
+/* aタグにカーソルを置かれたときにアンダーラインを非表示 */
+a:hover{
+  text-decoration: none;
+  }
+
+  .button-container {
+    display: inline-block;
+  }

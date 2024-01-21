@@ -14,53 +14,65 @@
 
 <!--検索フォーム-->
 <form method="get" action="{% url 'foodconnections:search_results' %}">
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-sm-10">
             {{ search_form.query|as_crispy_field }}
         </div>
-        <div class="col-sm-2">
+        <div class="button-container col-sm-2">
             <button type="submit" class="btn btn-secondary my-2 my-sm-0">検索</button>
         </div>
     </div>
 </form>
 
-<h1 class="mt-3">ピックアップ</h1>
-<div class="container mt-1">
-    <div class="row">
+<!--カテゴリー一覧-->
+<h2 class="mt-3">カテゴリーから探す</h2>
+<div class="row mt-3">
+{% for category in categories %}
+<div class="col-sm-6">
+    <a href="{% url 'foodconnections:category_list' category.id %}">
+    <div class="card bg-dark text-white my-3">
+        <img src="{{ category.image.url }}" class="card-img" width=50% height="200" alt="{{ category.name }}">
+        <div class="card-img-overlay">
+            <h3 class="card-title">{{ category.name }}</h5>
+        </div>
+    </div>
+    </a>
+</div>
+{% endfor %}
+</div>
+
+<!--おすすめ一覧-->
+<h2 class="mt-3">おすすめのお店</h2>
+
+<div class="container mt-4">
+    <div id="cardCarousel" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
         {% for recommend in recommends %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <a href="{% url 'foodconnections:detail' recommend.pk %}">
-                <img src="{{ recommend.image.url }}" class="card-img-top"  width=100% height="200" alt="{{ recommend.name }}">
-                </a>
-                <div class="card-body">
-                    <a href="{% url 'foodconnections:detail' recommend.pk %}" class="btn btn-primary">{{ recommend.name }}</a>
+            <a href="{% url 'foodconnections:detail' recommend.pk %}">
+                <div class="carousel-item {% if forloop.first %}active{% endif %} px-5" data-interval="2000">
+                <div class="card">
+                    <img src="{{ recommend.image.url }}" class="card-img-top"  width=100% height="300" alt="{{ recommend.name }}">
+                    <div class="card-body">
+                        <h3>{{ recommend.name }}</h3>
+                        <p class="mt-1">{{ recommend.category.name }}</p>
+                    </div>
                 </div>
-            </div>
-        </div>
+                </div>
+            </a>
         {% endfor %}
+      </div>
+      <a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#cardCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
 </div>
 
-<h1 class="mt-3">カテゴリー</h1>
-<div class="container mt-1">
-    <div class="row">
-        {% for category in categories %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
-                <a href="{% url 'foodconnections:category_list' category.id %}">
-                <img src="{{ category.image.url }}" class="card-img-top"  width=100% height="200" alt="{{ category.name }}">
-                </a>
-                <div class="card-body">
-                    <a href="{% url 'foodconnections:category_list' category.id %}" class="btn btn-primary">{{ category.name }}</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
+<a href="{% url 'foodconnections:search_results' %}" class="btn btn-primary btn-block mt-5">もっと見る</a>
 
-
-<a href="{% url 'foodconnections:search_results' %}" class="mt-3">全てのお店を見る</a>
 
 {% endblock %}

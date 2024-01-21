@@ -30,8 +30,9 @@
 <p class="mt-1">検索ワード: {{ query }}</p>
 {% endif %}
 
+<!--お店一覧-->
 {% if restaurant_list %}
-<div class="container mt-5">
+<div class="container mt-3">
     <div class="row">
         {% for restaurant in restaurant_list %}
         <div class="col-md-4 mb-4">
@@ -42,9 +43,8 @@
                 <img src="{% static 'foodconnections/images/no_image.png' %}" width=100% height="200" alt="No Image">
             {% endif %}
                 <div class="card-body">
-                    <h4 class="card-title">{{ restaurant.name }}</h4>
-                    <p class="card-text">{{ restaurant.category.name }}</p>
-                    <a href="{% url 'foodconnections:detail' restaurant.pk %}" class="btn btn-primary">詳細を見る</a>
+                    <a href="{% url 'foodconnections:detail' restaurant.pk %}" class="h5 text-reset stretched-link">{{ restaurant.name }}</a>
+                    <p class="mt-1">{{ restaurant.category.name }}</p>
                 </div>
             </div>
         </div>
