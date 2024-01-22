@@ -28,10 +28,13 @@ class SearchResultsView(generic.ListView):
     context_object_name = 'restaurant_list'
 
     def get_queryset(self):
+        # GET パラメータから query（店名の検索キーワード）と prefecture（都道府県）を取得
         query = self.request.GET.get('query', '')
-        if query:
+        prefecture = self.request.GET.get('prefecture', '')
+        # プルダウンリストと検索フォームのいずれかに入力がある場合に検索を行う
+        if query or prefecture:
             # 店名または住所のいずれかに一致するレストランを取得
-            return Restaurant.objects.filter(Q(name__icontains=query) | Q(address__icontains=query))
+            return Restaurant.objects.filter(name__icontains=query, address1__icontains=prefecture)
         else:
             return Restaurant.objects.all()
 
@@ -39,6 +42,7 @@ class SearchResultsView(generic.ListView):
         context = super().get_context_data(**kwargs)
         search_form = SearchForm()
         context['query'] = self.request.GET.get('query', '')
+        context['prefecture'] = self.request.GET.get('prefecture', '')
         context['search_form'] = search_form
         return context
 

@@ -9,12 +9,12 @@
 <form action="" method="post" class="h-adr">
   {% csrf_token %}
   <span class="p-country-name" style="display:none;">Japan</span>
-  {{ form.as_p }}
+  {{ form | crispy }}
   <button type="submit" class="submit">{{ shop|yesno:'編集,作成' }}</button>
 </form>
 
-<div>
-  <a href="JavaScript:history.back()">&lt; 戻る</a>
+<div class="mt-3">
+<a href="JavaScript:history.back()">&lt; 戻る</a>
 </div>
 
 {% endblock %}
