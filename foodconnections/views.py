@@ -1,6 +1,6 @@
 from django.views import generic, View
 from .models import Category, Restaurant, Review
-from .forms import ReviewForm, SearchForm
+from .forms import ReviewForm, SearchForm, RestaurantForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Avg, Q
@@ -103,14 +103,14 @@ class ReviewCreateView(generic.edit.CreateView):
 
 class CreateView(LoginRequiredMixin, generic.edit.CreateView):
     model = Restaurant
-    fields = ['name','address','category','image']
+    form_class = RestaurantForm
     template_name = 'foodconnections/restaurant_form.html'
     success_url = reverse_lazy('foodconnections:top_page')
 
     def form_valid(self, form):
-        form.instance.author = self.request.user #ログインしているユーザー名を投稿者にする
-        restaurant_name = form.cleaned_data['name'] #フォームに入力された店名を代入
-        messages.success(self.request, f'"{restaurant_name}"を登録しました。') #新規作成完了時のメッセージ
+        form.instance.author = self.request.user # ログインしているユーザー名を投稿者にする
+        restaurant_name = form.cleaned_data['name'] # フォームに入力された店名を代入
+        messages.success(self.request, f'"{restaurant_name}"を登録しました。') # 新規作成完了時のメッセージ
         return super(CreateView, self).form_valid(form)
 
 class UpdateView(generic.edit.UpdateView):

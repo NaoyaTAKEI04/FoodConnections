@@ -4,16 +4,17 @@
 
 {% block content %}
 
-    <h1>お店情報の{{ shop|yesno:'編集,作成' }}</h1>
+<h1>お店情報の{{ shop|yesno:'編集,作成' }}</h1>
 
-    <form action="" method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="submit">{{ shop|yesno:'編集,作成' }}</button>
-    </form>
+<form action="" method="post" class="h-adr">
+  {% csrf_token %}
+  <span class="p-country-name" style="display:none;">Japan</span>
+  {{ form.as_p }}
+  <button type="submit" class="submit">{{ shop|yesno:'編集,作成' }}</button>
+</form>
 
-    <div>
-      <a href="JavaScript:history.back()">&lt; 戻る</a>
-    </div>
-  
+<div>
+  <a href="JavaScript:history.back()">&lt; 戻る</a>
+</div>
+
 {% endblock %}

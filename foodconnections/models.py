@@ -11,8 +11,11 @@ class Category(models.Model):
 
 class Restaurant(models.Model):
     name = models.CharField(verbose_name='店名', max_length=100)
-    ruby = models.CharField(verbose_name='ふりがな', max_length=100, blank=True, null=True)
-    address = models.CharField(verbose_name='住所', max_length = 100)
+    ruby = models.CharField(verbose_name='店名（かな）', max_length=100, blank=True, null=True)
+    zip_code = models.CharField(verbose_name='郵便番号',max_length=8,blank=True,)
+    address1 = models.CharField(verbose_name='都道府県',max_length=40,blank=True,)
+    address2 = models.CharField(verbose_name='市区町村番地',max_length=40,blank=True,)
+    address3 = models.CharField(verbose_name='建物名',max_length=40,blank=True,)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='投稿者')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='カテゴリー',)
     image = models.ImageField(verbose_name='画像', upload_to='restaurant_images/', blank=True, null=True)
