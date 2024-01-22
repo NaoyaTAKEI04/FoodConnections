@@ -30,10 +30,10 @@
 {% for category in categories %}
 <div class="col-sm-6">
     <a href="{% url 'foodconnections:category_list' category.id %}">
-    <div class="card bg-dark text-white my-3">
+    <div class="card bg-dark my-3">
         <img src="{{ category.image.url }}" class="card-img" width=50% height="200" alt="{{ category.name }}">
         <div class="card-img-overlay">
-            <h3 class="card-title">{{ category.name }}</h5>
+            <h3 class="card-title text-light font-weight-bold">{{ category.name }}</h5>
         </div>
     </div>
     </a>
@@ -50,13 +50,13 @@
         {% for recommend in recommends %}
             <a href="{% url 'foodconnections:detail' recommend.pk %}">
                 <div class="carousel-item {% if forloop.first %}active{% endif %} px-5" data-interval="2000">
-                <div class="card">
-                    <img src="{{ recommend.image.url }}" class="card-img-top"  width=100% height="300" alt="{{ recommend.name }}">
-                    <div class="card-body">
-                        <h3>{{ recommend.name }}</h3>
-                        <p class="mt-1">{{ recommend.category.name }}</p>
+                    <div class="card">
+                        <img src="{{ recommend.image.url }}" class="card-img-top"  width=100% height="300" alt="{{ recommend.name }}">
+                        <div class="card-body">
+                            <h3>{{ recommend.name }}</h3>
+                            <p class="mt-1">{{ recommend.category.name }}</p>
+                        </div>
                     </div>
-                </div>
                 </div>
             </a>
         {% endfor %}

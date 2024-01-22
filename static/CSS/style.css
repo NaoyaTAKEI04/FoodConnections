@@ -10,7 +10,7 @@ img {
   background-color: black;
 }
 
-/* aタグの色を指定（カードのカルーセル内） */
+/* aタグの色を指定（top_page.htmlカードのカルーセル内） */
 .carousel-inner a:link, 
 .carousel-inner a:visited, 
 .carousel-inner a:hover, 
@@ -33,4 +33,11 @@ a:hover{
 .restaurant-list a:hover, 
 .restaurant-list a:active {
   color: black;
+}
+
+/* コンテンツが少なくてもフッターを画面最下部に固定 */
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
