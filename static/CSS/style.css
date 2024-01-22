@@ -26,3 +26,11 @@ a:hover{
   .button-container {
     display: inline-block;
   }
+
+  /* aタグの色を指定（serch_result.htmlとcategory_list.htmlの店舗一覧） */
+.restaurant-list a:link, 
+.restaurant-list a:visited, 
+.restaurant-list a:hover, 
+.restaurant-list a:active {
+  color: black;
+}

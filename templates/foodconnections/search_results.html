@@ -35,19 +35,21 @@
 <div class="container mt-3">
     <div class="row">
         {% for restaurant in restaurant_list %}
-        <div class="col-md-4 mb-4">
-            <div class="card">
-            {% if restaurant.image %}
-                <img src="{{ restaurant.image.url }}" class="card-img-top"  width=100% height="200" alt="{{ restaurant.name }}">
-            {% else %}
-                <img src="{% static 'foodconnections/images/no_image.png' %}" width=100% height="200" alt="No Image">
-            {% endif %}
-                <div class="card-body">
-                    <a href="{% url 'foodconnections:detail' restaurant.pk %}" class="h5 text-reset stretched-link">{{ restaurant.name }}</a>
-                    <p class="mt-1">{{ restaurant.category.name }}</p>
-                </div>
+            <div class="restaurant-list col-md-4 mb-4">
+                <a href="{% url 'foodconnections:detail' restaurant.pk %}">
+                    <div class="card">
+                    {% if restaurant.image %}
+                        <img src="{{ restaurant.image.url }}" class="card-img-top"  width=100% height="200" alt="{{ restaurant.name }}">
+                    {% else %}
+                        <img src="{% static 'foodconnections/images/no_image.png' %}" width=100% height="200" alt="No Image">
+                    {% endif %}
+                        <div class="card-body">
+                            <h4>{{ restaurant.name }}</h4>
+                            <p>{{ restaurant.category.name }}</p>
+                        </div>
+                    </div>
+                </a>
             </div>
-        </div>
         {% endfor %}
     </div>
 </div>
