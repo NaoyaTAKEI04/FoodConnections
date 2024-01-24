@@ -93,10 +93,10 @@ class DetailView(generic.DetailView):
     template_name = 'foodconnections/restaurant_detail.html'
     context_object_name = 'restaurant'
 
-    """ ここからレビュー表示の作成 """
+    """ レビュー表示の作成 """
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        reviews = Review.objects.filter(restaurant_id=self.kwargs['pk']) #対象店舗の全てのレビューを取得
+        reviews = Review.objects.filter(restaurant_id=self.kwargs['pk']) #対象飲食店の全てのレビューを取得
 
         """レビューの平均点と総数を計算"""
         average_score_dic = reviews.aggregate(Avg('score')) #レビュースコアの平均値を算出、辞書型{'score__ave':数値}で返ってくる

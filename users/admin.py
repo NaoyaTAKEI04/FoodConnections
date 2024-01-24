@@ -26,9 +26,9 @@ class CustomUserAdmin(UserAdmin):
 
     # ユーザーの編集画面でのフォームのセクションとその中で表示されるフィールドを指定
     fieldsets = (
-        ("BasicInfo", {"fields": ("username", "email", "password")}),
-        ("Personal", {"fields": ("date_joined",)}),
-        ("Auth", {"fields": ("is_staff", "is_active")}),
+        ("BasicInfo", {"fields": ("username", "email", "password",)}),
+        ("Personal", {"fields": ("date_joined", "user_type", "profile_image",)}),
+        ("Auth", {"fields": ("is_staff", "is_active",)}),
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)
