@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from .models import Restaurant, Review
+from users.models import CustomUser
 
 class RestaurantForm(forms.ModelForm):
     class Meta:
@@ -56,3 +57,9 @@ class SearchForm(forms.Form):
         ('宮崎県', '宮崎県'), ('鹿児島県', '鹿児島県'), ('沖縄県', '沖縄県'),]),
         required=False,
     )
+
+""" マイページの編集フォーム """
+class ProfileEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'profile_image']

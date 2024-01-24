@@ -3,7 +3,7 @@ img {
   object-fit: cover; 
 }
 
-/* カルーセルの前後ボタンの幅とボタンスタイルを修正(top_page.html) */
+/* カルーセルの前後ボタンの幅とボタンスタイルを修正(top_page.htmlのおすすめ一覧) */
 .carousel-control-next, .carousel-control-prev {
   width: 4.5%;
   min-width: 30px; /* 最小幅を設定することで、はみ出しを防ぐ */
@@ -43,4 +43,13 @@ a:hover{
 }
 .footer {
   margin-top: auto;
+}
+
+/* プロフィール画像を正円で表示する */
+.profile-image {
+  width:300px;
+  height:300px;
+  object-fit: cover;
+  border-radius: 50%;
+  object-position: center center;
 }

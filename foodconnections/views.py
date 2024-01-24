@@ -1,6 +1,7 @@
 from django.views import generic, View
 from .models import Category, Restaurant, Review
-from .forms import ReviewForm, SearchForm, RestaurantForm
+from users.models import CustomUser
+from .forms import ReviewForm, SearchForm, RestaurantForm, ProfileEditForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Avg, Q
@@ -57,19 +58,36 @@ class CategoryListView(View):
             'restaurants':restaurants,
         }
         return render(request, self.template_name, context)
-    
+
+""" マイページの表示 """
 class MyPageView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'foodconnections/my_page.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.request.user
-        user_restaurants = Restaurant.objects.filter(author=user)
-        user_reviews = Review.objects.filter(user=user)
+        user = self.request.user # アクセスユーザーの情報を取得
+        user_restaurants = Restaurant.objects.filter(author=user) # アクセスユーザーが投稿者に該当する飲食店の情報を取得
+        user_reviews = Review.objects.filter(user=user) # アクセスユーザーが投稿者に該当するレビューの情報を取得
+        context['user_info'] = user
         context['user_restaurants'] = user_restaurants
         context['user_reviews'] = user_reviews
         return context
+    
+""" マイページの編集 """
+class ProfileEditView(LoginRequiredMixin, generic.UpdateView):
+    model = CustomUser
+    form_class = ProfileEditForm
+    template_name = 'foodconnections/profile_edit.html'
+    success_url = reverse_lazy('foodconnections:my_page')
 
+    def get_object(self, queryset=None):
+        return self.request.user  # ログイン中のユーザーを取得
+
+    def form_valid(self, form):
+        messages.success(self.request, 'プロフィールが更新されました。')
+        return super().form_valid(form)
+
+""" 飲食店の詳細ページの表示 """
 class DetailView(generic.DetailView):
     model = Restaurant
     template_name = 'foodconnections/restaurant_detail.html'

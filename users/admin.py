@@ -1,8 +1,9 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
 
-class CustomUserAdmin(admin.ModelAdmin):
-    # 一覧画面: 表示項目
+class CustomUserAdmin(UserAdmin):
+    # 管理者ページの一覧表示で表示されるフィールドを指定
     list_display = (
         "email",
         "username",
@@ -23,15 +24,11 @@ class CustomUserAdmin(admin.ModelAdmin):
     # 一覧画面: ソート（降順ならフィールド名の先頭に-）
     ordering = ("email",)
 
-    # 詳細画面: 表示項目
-    basic = ("username", "email", "password")
-    personal = ("last_name", "first_name", "date_joined")
-    auth = ("is_staff", "is_active")
-
+    # ユーザーの編集画面でのフォームのセクションとその中で表示されるフィールドを指定
     fieldsets = (
-        ("BasicInfo", {"fields": basic}),
-        ("Personal", {"fields": personal}),
-        ("Auth", {"fields": auth}),
+        ("BasicInfo", {"fields": ("username", "email", "password")}),
+        ("Personal", {"fields": ("date_joined",)}),
+        ("Auth", {"fields": ("is_staff", "is_active")}),
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)
