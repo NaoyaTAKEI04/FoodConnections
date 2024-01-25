@@ -49,3 +49,10 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.restaurant.name} - {self.user.username}"
+    
+""" 農家モデル """
+class Farmer(models.Model):
+    name = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='名前')
+    farm_name = models.CharField(verbose_name='農場名', max_length=50, blank=True)
+    catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=False, null=True)
+    comment = models.TextField(verbose_name='コメント', max_length=250, blank=False)

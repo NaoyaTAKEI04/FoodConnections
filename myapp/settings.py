@@ -158,6 +158,8 @@ ACCOUNT_USERNAME_REQUIRED = True # サインアップ（ユーザー登録）の
 ACCOUNT_EMAIL_REQUIRED = True # サインアップ（ユーザー登録）の時にメールアドレスを尋ねる
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # メール検証を必須とする
 
+ACCOUNT_FORMS = {'signup': 'users.forms.CustomSignupForm'} # サインアップフォームに独自フォーム（CustomSignupFormクラス）を追加
+
 LOGIN_URL = '/accounts/login/' # ログインURLの設定
 LOGIN_REDIRECT_URL = '/foodconnections/' # ログイン後のリダイレクト先
 ACCOUNT_LOGOUT_REDIRECT_URL = '/foodconnections/' # ログアウト後のリダイレクト先

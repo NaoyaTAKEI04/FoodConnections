@@ -2,19 +2,22 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 
-{% block head_title %}サインアップ{% endblock %}
-
 {% block content %}
-<div class="allauth_container">
-    <form class="signup allauth_form" id="signup_form" method="post" action="{% url 'account_signup' %}">
-    {% csrf_token %}
-        <h2>サインアップ</h2>
-        {{ form | crispy }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-    {% endif %}
-        <button class=" btn btn-primary my-3 form-control" type="submit">サインアップ &raquo;</button>
-        <p>すでにアカウントをお持ちの方は <a href="{{ login_url }}">こちら</a></p>
-    </form>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form class="signup-form" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <h2 class="mb-4">サインアップ</h2>
+
+                {{ form | crispy }}
+
+ 
+                <button class="btn btn-primary btn-block mt-5" type="submit">サインアップ</button>
+
+                <p class="mt-3">すでにアカウントをお持ちの方は <a href="{% url 'account_login' %}">こちら</a></p>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
