@@ -25,7 +25,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
-    verified = models.BooleanField(default=False)
     user_type = models.CharField(max_length=20, default='general')
     profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
 
