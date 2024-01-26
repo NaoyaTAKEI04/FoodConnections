@@ -22,8 +22,16 @@
             <!-- ユーザー情報の表示 -->
             <div class="mb-4">
                 <h5 class="card-title">{{ user_info.username }} さん</h5>
-                <p class="card-text">メールアドレス: {{ user_info.email }}</p>
-                <p class="card-text">ユーザータイプ: {{ user_info.get_user_type_display }}</p>
+                <table class="table">
+                    <tr>
+                        <td>メールアドレス</td>
+                        <td>{{ user_info.email }}</td>
+                    </tr>
+                    <tr>
+                        <td>ユーザータイプ</td>
+                        <td>{{ user_info.get_user_type_display }}</td>
+                    </tr>
+                </table>
                 {% if user_info.profile_image %}
                 <img src="{{ user_info.profile_image.url }}" alt="プロフィール画像" class="img-fluid rounded-circle profile-image">
                 {% else %}
