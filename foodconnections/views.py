@@ -1,5 +1,5 @@
 from django.views import generic, View
-from .models import Category, Restaurant, Review
+from .models import Category, Restaurant, Review, Farmer
 from users.models import CustomUser
 from .forms import ReviewForm, SearchForm, RestaurantForm, ProfileEditForm
 from django.urls import reverse_lazy
@@ -68,9 +68,11 @@ class MyPageView(LoginRequiredMixin, generic.TemplateView):
         user = self.request.user # アクセスユーザーの情報を取得
         user_restaurants = Restaurant.objects.filter(author=user) # アクセスユーザーが投稿者に該当する飲食店の情報を取得
         user_reviews = Review.objects.filter(user=user) # アクセスユーザーが投稿者に該当するレビューの情報を取得
+        user_farm = Farmer.objects.filter(name=user) # アクセスユーザーが投稿者に該当する農園情報を取得
         context['user_info'] = user
         context['user_restaurants'] = user_restaurants
         context['user_reviews'] = user_reviews
+        context['user_farm'] = user_farm
         return context
     
 """ マイページの編集 """

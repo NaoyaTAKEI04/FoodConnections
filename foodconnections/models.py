@@ -56,3 +56,6 @@ class Farmer(models.Model):
     farm_name = models.CharField(verbose_name='農場名', max_length=50, blank=True)
     catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=False, null=True)
     comment = models.TextField(verbose_name='コメント', max_length=250, blank=False)
+
+    def __str__(self):
+        return self.name.username

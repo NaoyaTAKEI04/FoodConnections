@@ -39,3 +39,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email' #認証に使うフィールドの設定
     EMAIL_FIELD = "email"
     REQUIRED_FIELDS = ['username'] #createsuperuserコマンド実行時に入力が必要なフィールド
+
+    def __str__(self):
+        return self.username

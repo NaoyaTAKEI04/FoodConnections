@@ -38,7 +38,7 @@
                 <img src="{% static 'foodconnections/images/default_avatar.png' %}" alt="デフォルト画像" class="img-fluid rounded-circle profile-image">
                 {% endif %}
             </div>
-            <a href="{% url 'foodconnections:profile_edit' %}" class="btn btn-primary">編集</a>
+            <a href="{% url 'foodconnections:profile_edit' %}" class="btn btn-primary">ユーザー情報を編集</a>
             <!-- 投稿した飲食店情報の表示（飲食店オーナーのみ表示） -->
             {% if user_info.user_type == 'restaurant_owner' %}
                 <h3 class="mt-5">作成したレストラン一覧</h3>
@@ -97,6 +97,32 @@
                     </table>
                 {% else %}
                     <p>まだレビューを投稿していません。</p>
+                {% endif %}
+
+            <!-- 農園情報の表示（農家のみ表示） -->
+            {% elif user_info.user_type == 'farmer' %}
+                <h3 class="mt-5">農園情報</h3>
+                {% if user_farm %}
+                    {% for farm in user_farm %}
+                        <table class="table table-striped mt-3">
+                            <tr>
+                                <td><b>農園名</b></td>
+                                <td>{{ farm.farm_name }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>キャッチコピー</b></td>
+                                <td>{{ farm.catchphrase }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>コメント</b></td>
+                                <td>{{ farm.comment }}</td>
+                            </tr>
+                        </table>
+                    {% endfor %}
+                    <a href="#" class="btn btn-primary">編集</a>
+                {% else %}
+                <p>農園情報は登録されていません。</p>
+                <a href="#" class="btn btn-primary">農園情報を登録する</a>
                 {% endif %}
             {% endif %}
         </div>
