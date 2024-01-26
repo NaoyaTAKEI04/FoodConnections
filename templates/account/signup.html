@@ -8,7 +8,7 @@
         <div class="col-md-6">
             <form class="signup-form" method="post" action="{% url 'account_signup' %}">
                 {% csrf_token %}
-                <h2 class="mb-4">サインアップ</h2>
+                <h2 class="mb-4  text-center">サインアップ</h2>
 
                 {{ form | crispy }}
 

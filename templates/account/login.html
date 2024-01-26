@@ -11,7 +11,7 @@
         <div class="card-body">
           <form class="login allauth_form" method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
-            <h2 class="mb-4">ログイン</h2>
+            <h2 class="mb-4 text-center">ログイン</h2>
             {{ form | crispy }}
             {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
