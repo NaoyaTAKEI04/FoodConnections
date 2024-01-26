@@ -6,17 +6,18 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <form class="signup-form" method="post" action="{% url 'account_signup' %}">
-                {% csrf_token %}
-                <h2 class="mb-4  text-center">サインアップ</h2>
+            <div class="card p-4">
+                <form class="signup-form" method="post" action="{% url 'account_signup' %}">
+                    {% csrf_token %}
+                    <h2 class="mb-4 text-center">サインアップ</h2>
 
-                {{ form | crispy }}
+                    {{ form | crispy }}
 
- 
-                <button class="btn btn-primary btn-block mt-5" type="submit">サインアップ</button>
+                    <button class="btn btn-primary btn-block mt-5" type="submit">サインアップ</button>
 
-                <p class="mt-3">すでにアカウントをお持ちの方は <a href="{% url 'account_login' %}">こちら</a></p>
-            </form>
+                    <p class="mt-3">すでにアカウントをお持ちの方は <a href="{% url 'account_login' %}">こちら</a></p>
+                </form>
+            </div>
         </div>
     </div>
 </div>
