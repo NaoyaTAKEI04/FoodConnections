@@ -25,14 +25,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)
-    
-    USER_TYPE_CHOICES = [
-        ('general', '一般ユーザー'),
-        ('restaurant_owner', '飲食店オーナー'),
-        ('farmer', '農家'),
-    ]
-
-    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES, default='general')
+    verified = models.BooleanField(default=False)
+    user_type = models.CharField(max_length=20, default='general')
     profile_image = models.ImageField(upload_to='profile_images/', null=True, blank=True)
 
     objects = CustomUserManager()
