@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import CustomUser
 
+""" カテゴリーモデル """
 class Category(models.Model):
     name = models.CharField(verbose_name='カテゴリー', max_length=100)
     auther = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='投稿者')
@@ -8,7 +9,18 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+""" 農家モデル """
+class Farmer(models.Model):
+    farmer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='農家ユーザー')
+    farm_name = models.CharField(verbose_name='農場名', max_length=50, blank=True)
+    catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=False, null=True)
+    comment = models.TextField(verbose_name='コメント', max_length=250, blank=False)
 
+    def __str__(self):
+        return self.farmer.username
+
+""" レストランモデル """
 class Restaurant(models.Model):
     name = models.CharField(verbose_name='店名', max_length=100)
     ruby = models.CharField(verbose_name='店名（かな）', max_length=100, blank=True, null=True)
@@ -22,13 +34,14 @@ class Restaurant(models.Model):
     catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=True, null=True)
     comment = models.TextField(verbose_name='コメント', blank=True, null=True)
     recommend = models.BooleanField(verbose_name='おすすめ店舗', default=False)
+    farmer_id = models.PositiveIntegerField(verbose_name='農家ID', blank=True, null=True)
     created_at = models.DateTimeField(verbose_name='作成日', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='更新日', auto_now=True)
 
     def __str__(self):
         return self.name
 
-""" レビューのモデル """
+""" レビューモデル """
 SCORE_CHOICES = [
     (1, '★'),
     (2, '★★'),
@@ -39,7 +52,7 @@ SCORE_CHOICES = [
 
 class Review(models.Model):
 
-    user = models.ForeignKey(CustomUser, on_delete=models.PROTECT, verbose_name='投稿者')
+    author = models.ForeignKey(CustomUser, on_delete=models.PROTECT, verbose_name='投稿者')
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, verbose_name='店名')
     score = models.PositiveSmallIntegerField(verbose_name='満足度', choices=SCORE_CHOICES, default=3, blank=False)
     title = models.CharField(verbose_name='タイトル', max_length=50, blank=False)
@@ -49,13 +62,3 @@ class Review(models.Model):
 
     def __str__(self):
         return f"{self.restaurant.name} - {self.user.username}"
-    
-""" 農家モデル """
-class Farmer(models.Model):
-    name = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='名前')
-    farm_name = models.CharField(verbose_name='農場名', max_length=50, blank=True)
-    catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=False, null=True)
-    comment = models.TextField(verbose_name='コメント', max_length=250, blank=False)
-
-    def __str__(self):
-        return self.name.username

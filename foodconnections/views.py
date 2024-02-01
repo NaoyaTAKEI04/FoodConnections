@@ -67,8 +67,8 @@ class MyPageView(LoginRequiredMixin, generic.TemplateView):
         context = super().get_context_data(**kwargs)
         user = self.request.user # アクセスユーザーの情報を取得
         user_restaurants = Restaurant.objects.filter(author=user) # アクセスユーザーが投稿者に該当する飲食店の情報を取得
-        user_reviews = Review.objects.filter(user=user) # アクセスユーザーが投稿者に該当するレビューの情報を取得
-        user_farm = Farmer.objects.filter(name=user) # アクセスユーザーが投稿者に該当する農園情報を取得
+        user_reviews = Review.objects.filter(author=user) # アクセスユーザーが投稿者に該当するレビューの情報を取得
+        user_farm = Farmer.objects.filter(farmer=user) # アクセスユーザーが投稿者に該当する農園情報を取得
         context['user_info'] = user
         context['user_restaurants'] = user_restaurants
         context['user_reviews'] = user_reviews
@@ -95,20 +95,39 @@ class DetailView(generic.DetailView):
     template_name = 'foodconnections/restaurant_detail.html'
     context_object_name = 'restaurant'
 
-    """ レビュー表示の作成 """
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        reviews = Review.objects.filter(restaurant_id=self.kwargs['pk']) #対象飲食店の全てのレビューを取得
+        reviews = Review.objects.filter(restaurant_id=self.kwargs['pk']) # 対象飲食店の全てのレビューを取得
 
         """レビューの平均点と総数を計算"""
-        average_score_dic = reviews.aggregate(Avg('score')) #レビュースコアの平均値を算出、辞書型{'score__ave':数値}で返ってくる
+        average_score_dic = reviews.aggregate(Avg('score')) # レビュースコアの平均値を算出、辞書型{'score__ave':数値}で返ってくる
         average_score = average_score_dic['score__avg']
         total_reviews = reviews.count()
 
         context['reviews'] = reviews
         context['average_score'] = round(average_score, 1) if average_score else 0
         context['total_reviews'] = total_reviews
-        context['review_form'] = ReviewForm
+
+        context['review_form'] = ReviewForm # ReviewFormのインスタンスを作成し、コンテキストに追加
+
+        """農家の情報を取得"""
+        # 飲食店が紐づけた農家の ID を取得
+        farmer_id = self.object.farmer_id
+
+        # 農家の情報を取得
+        if farmer_id:
+            farmer = get_object_or_404(Farmer, pk=farmer_id)
+            farmer_data = {
+                'farmer_name' : farmer.farmer.username,
+                'profile_image' : farmer.farmer.profile_image,
+                'farm_name' : farmer.farm_name,
+                'catchphrase' : farmer.catchphrase,
+                'comment' : farmer.comment,
+            }
+        else:
+            farmer_data = None
+
+        context['farmer_data'] = farmer_data
 
         return context
     
