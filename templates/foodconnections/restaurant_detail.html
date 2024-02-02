@@ -46,7 +46,7 @@
         <div class="row no-gutters">
             <div class="col-2 d-flex align-items-center justify-content-center">
                 {% if farmer_data.profile_image %}
-                    <img class="card-img" src="{{ farmer_data.profile_image }}" alt="profile_image" class="review-profile-image img-fluid rounded-circle">
+                    <img class="card-img" src="{{ farmer_data.profile_image.url }}" alt="profile_image" class="review-profile-image img-fluid rounded-circle">
                 {% else %}
                     <img src="{% static 'foodconnections/images/default_avatar.png' %}" alt="デフォルト画像" class="review-profile-image img-fluid rounded-circle">
                 {% endif %}
