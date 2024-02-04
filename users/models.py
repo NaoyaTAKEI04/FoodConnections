@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from allauth.account.models import EmailAddress
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, email, password=None, **extra_fields):
@@ -39,6 +40,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email' #認証に使うフィールドの設定
     EMAIL_FIELD = "email"
     REQUIRED_FIELDS = ['username'] #createsuperuserコマンド実行時に入力が必要なフィールド
+
+    def verified_email(self): #メール認証が済んでいるかどうかを管理画面に表示
+        return EmailAddress.objects.filter(user=self, verified=True).exists()
+
+    verified_email.boolean = True  # 表示をTrue/Falseに変更
+    verified_email.short_description = 'Verified Email'  # 列ヘッダーの表示
 
     def __str__(self):
         return self.username

@@ -4,11 +4,8 @@
 {% block content %}
 <div class="container my-5 bg-light p-4" style="max-width:450px;">
   <p class="text-center"><b><u>確認用のメールを送信しました！</b></u></p>
-  <p>
-    入力されたメールアドレスに、新規ユーザー登録用の確認メールを送信しました。
-    メールに記載されたリンクをクリックして、ユーザー登録を完了させてください。
-  </p>
-  <p class="mt-3"><b>メールアドレス：{{ confirmation.email_address.email }}</b></p>
+  <p class="mt-3">入力されたメールアドレスに、新規ユーザー登録用の確認メールを送信しました。</p>
+  <p>メールに記載されたリンクをクリックして、ユーザー登録を完了させてください。</p>
   <div class="my-3">
     <a href="{% url 'foodconnections:top_page' %}" type="button" class="btn btn-primary form-control">トップへ</a>
   </div>

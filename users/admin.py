@@ -7,6 +7,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = (
         "email",
         "username",
+        "verified_email",
         "is_staff",
         "is_active",
         "date_joined",
