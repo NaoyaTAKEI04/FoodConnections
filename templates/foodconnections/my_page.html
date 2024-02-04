@@ -107,7 +107,7 @@
                         <table class="table table-striped mt-3">
                             <tr>
                                 <td><b>ユーザーID</b></td>
-                                <td>{{ user_info.id }}</td>
+                                <td>{{ farm.id }}</td>
                             </tr>
                             <tr>
                                 <td><b>農園名</b></td>
@@ -123,7 +123,7 @@
                             </tr>
                         </table>
                     {% endfor %}
-                    <a href="#" class="btn btn-primary">編集</a>
+                    <a href="{% url 'foodconnections:farmer_edit' %}" class="btn btn-primary">編集</a>
                 {% else %}
                 <p>農園情報は登録されていません。</p>
                 <a href="#" class="btn btn-primary">農園情報を登録する</a>

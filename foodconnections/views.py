@@ -1,7 +1,7 @@
 from django.views import generic, View
 from .models import Category, Restaurant, Review, Farmer
 from users.models import CustomUser
-from .forms import ReviewForm, SearchForm, RestaurantForm, ProfileEditForm
+from .forms import ReviewForm, SearchForm, RestaurantForm, ProfileEditForm, FarmerForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Avg, Q
@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 
+""" トップページの表示 """
 class TopPageView(View):
     template_name = 'foodconnections/top_page.html'
 
@@ -23,6 +24,7 @@ class TopPageView(View):
         }
         return render(request, self.template_name, context)
 
+""" 検索結果の表示 """
 class SearchResultsView(generic.ListView):
     model = Restaurant
     template_name = 'foodconnections/search_results.html'
@@ -47,6 +49,7 @@ class SearchResultsView(generic.ListView):
         context['search_form'] = search_form
         return context
 
+""" 該当カテゴリーの飲食店一覧を表示 """
 class CategoryListView(View):
     template_name = 'foodconnections/category_list.html'
 
@@ -131,6 +134,7 @@ class DetailView(generic.DetailView):
 
         return context
     
+""" レビューの作成 """
 class ReviewCreateView(generic.edit.CreateView):
     model = Review
     form_class = ReviewForm
@@ -144,6 +148,7 @@ class ReviewCreateView(generic.edit.CreateView):
     def get_success_url(self):
         return reverse_lazy('foodconnections:detail', kwargs={'pk': self.kwargs.get('pk')})
 
+""" 飲食店の詳細ページの作成 """
 class CreateView(LoginRequiredMixin, generic.edit.CreateView):
     model = Restaurant
     form_class = RestaurantForm
@@ -156,6 +161,7 @@ class CreateView(LoginRequiredMixin, generic.edit.CreateView):
         messages.success(self.request, f'"{restaurant_name}"を登録しました。') # 新規作成完了時のメッセージ
         return super(CreateView, self).form_valid(form)
 
+""" 飲食店の詳細ページの更新 """
 class UpdateView(generic.edit.UpdateView):
     model = Restaurant
     fields = ['name','address','category','image']
@@ -163,12 +169,13 @@ class UpdateView(generic.edit.UpdateView):
     context_object_name = 'restaurant'
 
     def form_valid(self, form):
-        messages.success(self.request, '編集内容が反映されました。')
+        messages.success(self.request, 'お店の情報が更新されました。')
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('foodconnections:detail', kwargs={'pk':self.object.pk})
 
+""" 飲食店の詳細ページの削除 """
 class DeleteView(generic.DeleteView):
     model = Restaurant
     template_name = 'foodconnections/restaurant_comfirm_delete.html'
@@ -180,7 +187,8 @@ class DeleteView(generic.DeleteView):
         shop_name = delete_instance.name
         messages.success(self.request, f'"{ shop_name }"を削除しました。')
         return super().delete(request, *args, **kwargs)
-    
+
+""" レビューの削除 """  
 class ReviewDeleteView(generic.DeleteView):
     model = Review
     template_name = 'foodconnections/review_comfirm_delete.html'
@@ -191,3 +199,19 @@ class ReviewDeleteView(generic.DeleteView):
         delete_instance = self.get_object()
         messages.success(self.request, 'レビューを削除しました。')
         return super().delete(request, *args, **kwargs)
+    
+""" 農園情報の編集 """    
+class FarmerEditView(LoginRequiredMixin, generic.edit.UpdateView):
+    model = Farmer
+    form_class = FarmerForm
+    template_name = 'foodconnections/farmer_edit.html'
+    success_url = reverse_lazy('foodconnections:my_page')
+
+    def get_object(self, queryset=None):
+        if not hasattr(self.request.user, 'farmer_profile'): # ユーザーが Farmer プロフィールを持っていない場合は作成する
+            Farmer.objects.create(farmer=self.request.user)
+        return self.request.user.farmer_profile  # ログイン中のユーザーの Farmer プロフィールを取得
+
+    def form_valid(self, form):
+        messages.success(self.request, '農園情報が更新されました。')
+        return super().form_valid(form)

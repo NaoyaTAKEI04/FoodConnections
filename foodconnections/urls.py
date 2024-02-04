@@ -14,5 +14,6 @@ urlpatterns = [
     path('<int:pk>/review_delete/', views.ReviewDeleteView.as_view(), name='review_delete'),
     path('search/', views.SearchResultsView.as_view(), name='search_results'),
     path('my_page/', views.MyPageView.as_view(), name='my_page'),
-    path('profile_edit', views.ProfileEditView.as_view(), name='profile_edit'),
+    path('profile_edit/', views.ProfileEditView.as_view(), name='profile_edit'),
+    path('farmer_edit/', views.FarmerEditView.as_view(), name='farmer_edit'),
 ]

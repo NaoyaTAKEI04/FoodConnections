@@ -12,10 +12,10 @@ class Category(models.Model):
     
 """ 農家モデル """
 class Farmer(models.Model):
-    farmer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='農家ユーザー')
-    farm_name = models.CharField(verbose_name='農場名', max_length=50, blank=True)
-    catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=False, null=True)
-    comment = models.TextField(verbose_name='コメント', max_length=250, blank=False)
+    farmer = models.OneToOneField(CustomUser, on_delete=models.CASCADE, verbose_name='農家ユーザー', related_name='farmer_profile')
+    farm_name = models.CharField(verbose_name='農場名 / 代表者名', max_length=50, blank=True, null=True)
+    catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=True, null=True)
+    comment = models.TextField(verbose_name='コメント', max_length=250, blank=True, null=True)
 
     def __str__(self):
         return self.farmer.username

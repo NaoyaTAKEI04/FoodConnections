@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Restaurant, Review
+from .models import Restaurant, Review, Farmer
 from users.models import CustomUser
 
 class RestaurantForm(forms.ModelForm):
@@ -63,3 +63,9 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'profile_image']
+
+""" 農園情報の作成フォーム """
+class FarmerForm(forms.ModelForm):
+    class Meta:
+        model = Farmer
+        fields = ['farm_name','catchphrase','comment']
