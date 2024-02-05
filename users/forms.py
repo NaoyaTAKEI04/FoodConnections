@@ -6,7 +6,7 @@ class CustomSignupForm(SignupForm):
     USER_TYPE_CHOICES = (
         ('general', '一般ユーザー'),
         ('restaurant_owner', '飲食店オーナー'),
-        ('farmer', '農家'),
+        ('farmer', '生産者'),
     )
     user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES,label='ユーザータイプ',)
 

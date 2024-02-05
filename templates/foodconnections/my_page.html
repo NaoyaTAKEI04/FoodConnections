@@ -99,9 +99,9 @@
                     <p>まだレビューを投稿していません。</p>
                 {% endif %}
 
-            <!-- 農園情報の表示（農家のみ表示） -->
+            <!-- 生産者情報の表示（生産者のみ表示） -->
             {% elif user_info.user_type == 'farmer' %}
-                <h3 class="mt-5">農園情報</h3>
+                <h3 class="mt-5">生産者情報</h3>
                 {% if user_farm %}
                     {% for farm in user_farm %}
                         <table class="table table-striped mt-3">
@@ -110,7 +110,7 @@
                                 <td>{{ farm.id }}</td>
                             </tr>
                             <tr>
-                                <td><b>農園名</b></td>
+                                <td><b>会社名</b></td>
                                 <td>{{ farm.farm_name }}</td>
                             </tr>
                             <tr>
@@ -125,8 +125,8 @@
                     {% endfor %}
                     <a href="{% url 'foodconnections:farmer_edit' %}" class="btn btn-primary">編集</a>
                 {% else %}
-                <p>農園情報は登録されていません。</p>
-                <a href="#" class="btn btn-primary">農園情報を登録する</a>
+                <p>生産者情報は登録されていません。</p>
+                <a href="#" class="btn btn-primary">登録する</a>
                 {% endif %}
             {% endif %}
         </div>

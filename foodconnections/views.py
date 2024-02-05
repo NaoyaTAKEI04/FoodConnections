@@ -113,11 +113,11 @@ class DetailView(generic.DetailView):
 
         context['review_form'] = ReviewForm # ReviewFormのインスタンスを作成し、コンテキストに追加
 
-        """農家の情報を取得"""
+        """生産者の情報を取得"""
         # 飲食店が紐づけた農家の ID を取得
         farmer_id = self.object.farmer_id
 
-        # 農家の情報を取得
+        # 生産者の情報を取得
         if farmer_id:
             farmer = get_object_or_404(Farmer, pk=farmer_id)
             farmer_data = {
