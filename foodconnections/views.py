@@ -71,7 +71,7 @@ class MyPageView(LoginRequiredMixin, generic.TemplateView):
         user = self.request.user # アクセスユーザーの情報を取得
         user_restaurants = Restaurant.objects.filter(author=user) # アクセスユーザーが投稿者に該当する飲食店の情報を取得
         user_reviews = Review.objects.filter(author=user) # アクセスユーザーが投稿者に該当するレビューの情報を取得
-        user_farm = Farmer.objects.filter(farmer=user) # アクセスユーザーが投稿者に該当する農園情報を取得
+        user_farm = Farmer.objects.filter(farmer=user) # アクセスユーザーが投稿者に該当する生産者情報を取得
         context['user_info'] = user
         context['user_restaurants'] = user_restaurants
         context['user_reviews'] = user_reviews
@@ -161,15 +161,15 @@ class CreateView(LoginRequiredMixin, generic.edit.CreateView):
         messages.success(self.request, f'"{restaurant_name}"を登録しました。') # 新規作成完了時のメッセージ
         return super(CreateView, self).form_valid(form)
 
-""" 飲食店の詳細ページの更新 """
+""" 飲食店の詳細ページの編集 """
 class UpdateView(generic.edit.UpdateView):
     model = Restaurant
-    fields = ['name','address','category','image']
+    form_class = RestaurantForm
     template_name = 'foodconnections/restaurant_form.html'
     context_object_name = 'restaurant'
 
     def form_valid(self, form):
-        messages.success(self.request, 'お店の情報が更新されました。')
+        messages.success(self.request, 'お店の情報が編集されました。')
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -200,12 +200,13 @@ class ReviewDeleteView(generic.DeleteView):
         messages.success(self.request, 'レビューを削除しました。')
         return super().delete(request, *args, **kwargs)
     
-""" 農園情報の編集 """    
+""" 生産者情報の編集 """    
 class FarmerEditView(LoginRequiredMixin, generic.edit.UpdateView):
     model = Farmer
     form_class = FarmerForm
     template_name = 'foodconnections/farmer_edit.html'
     success_url = reverse_lazy('foodconnections:my_page')
+    context_object_name = 'farmer'
 
     def get_object(self, queryset=None):
         if not hasattr(self.request.user, 'farmer_profile'): # ユーザーが Farmer プロフィールを持っていない場合は作成する
@@ -213,5 +214,5 @@ class FarmerEditView(LoginRequiredMixin, generic.edit.UpdateView):
         return self.request.user.farmer_profile  # ログイン中のユーザーの Farmer プロフィールを取得
 
     def form_valid(self, form):
-        messages.success(self.request, '農園情報が更新されました。')
+        messages.success(self.request, '生産者情報が更新されました。')
         return super().form_valid(form)

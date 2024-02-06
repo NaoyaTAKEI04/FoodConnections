@@ -10,8 +10,8 @@ class CustomSignupForm(SignupForm):
     )
     user_type = forms.ChoiceField(choices=USER_TYPE_CHOICES,label='ユーザータイプ',)
 
-    #def save(self, request):
-     #   user = super(CustomSignupForm, self).save(request)
-      #  user.user_type = self.cleaned_data['user_type']
-       # user.save()
-        #return user
+    def save(self, request):
+        user = super(CustomSignupForm, self).save(request)
+        user.user_type = self.cleaned_data['user_type']
+        user.save()
+        return user

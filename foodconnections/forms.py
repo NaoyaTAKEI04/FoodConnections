@@ -6,7 +6,7 @@ from users.models import CustomUser
 class RestaurantForm(forms.ModelForm):
     class Meta:
         model = Restaurant
-        fields = ['name', 'ruby', 'zip_code', 'address1', 'address2', 'address3', 'category', 'image', 'catchphrase', 'comment']
+        fields = ['name', 'ruby', 'zip_code', 'address1', 'address2', 'address3', 'category', 'image', 'catchphrase', 'comment', 'messages']
 
         widgets = {
             'zip_code':

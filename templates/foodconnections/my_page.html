@@ -102,32 +102,27 @@
             <!-- 生産者情報の表示（生産者のみ表示） -->
             {% elif user_info.user_type == 'farmer' %}
                 <h3 class="mt-5">生産者情報</h3>
-                {% if user_farm %}
-                    {% for farm in user_farm %}
-                        <table class="table table-striped mt-3">
-                            <tr>
-                                <td><b>ユーザーID</b></td>
-                                <td>{{ farm.id }}</td>
-                            </tr>
-                            <tr>
-                                <td><b>会社名</b></td>
-                                <td>{{ farm.farm_name }}</td>
-                            </tr>
-                            <tr>
-                                <td><b>キャッチコピー</b></td>
-                                <td>{{ farm.catchphrase }}</td>
-                            </tr>
-                            <tr>
-                                <td><b>コメント</b></td>
-                                <td>{{ farm.comment }}</td>
-                            </tr>
-                        </table>
-                    {% endfor %}
-                    <a href="{% url 'foodconnections:farmer_edit' %}" class="btn btn-primary">編集</a>
-                {% else %}
-                <p>生産者情報は登録されていません。</p>
-                <a href="#" class="btn btn-primary">登録する</a>
-                {% endif %}
+                {% for farm in user_farm %}
+                    <table class="table table-striped mt-3">
+                        <tr>
+                            <td><b>ユーザーID</b></td>
+                            <td>{{ farm.id }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>会社名</b></td>
+                            <td>{{ farm.farm_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>キャッチコピー</b></td>
+                            <td>{{ farm.catchphrase }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>コメント</b></td>
+                            <td>{{ farm.comment }}</td>
+                        </tr>
+                    </table>
+                {% endfor %}
+                <a href="{% url 'foodconnections:farmer_edit' %}" class="btn btn-primary">編集</a>
             {% endif %}
         </div>
     </div>
