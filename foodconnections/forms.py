@@ -64,7 +64,7 @@ class ProfileEditForm(forms.ModelForm):
         model = CustomUser
         fields = ['username', 'email', 'profile_image']
 
-""" 農園情報の作成フォーム """
+""" 生産者情報の作成フォーム """
 class FarmerForm(forms.ModelForm):
     class Meta:
         model = Farmer

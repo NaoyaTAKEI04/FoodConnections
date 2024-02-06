@@ -5,6 +5,7 @@ from .models import CustomUser
 class CustomUserAdmin(UserAdmin):
     # 管理者ページの一覧表示で表示されるフィールドを指定
     list_display = (
+        "id",
         "email",
         "username",
         "verified_email",

@@ -10,7 +10,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
     
-""" 農家モデル """
+""" 生産者モデル """
 class Farmer(models.Model):
     farmer = models.OneToOneField(CustomUser, on_delete=models.CASCADE, verbose_name='生産者ユーザー', related_name='farmer_profile')
     farm_name = models.CharField(verbose_name='会社名 / 代表者名', max_length=50, blank=True, null=True)
@@ -62,4 +62,4 @@ class Review(models.Model):
     updated_at = models.DateTimeField(verbose_name='更新日', auto_now=True)
 
     def __str__(self):
-        return f"{self.restaurant.name} - {self.user.username}"
+        return f"{self.restaurant.name} - {self.author.username}"

@@ -141,12 +141,24 @@ class ReviewCreateView(generic.edit.CreateView):
     template_name = 'foodconnections/restaurant_detail.html'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user #投稿されたレビューにログインしているユーザーを関連付ける
-        form.instance.restaurant = get_object_or_404(Restaurant, pk=self.kwargs['pk']) #投稿されたレビューに対象の店舗を関連付ける
+        form.instance.author = self.request.user # 投稿されたレビューにログインしているユーザーを関連付ける
+        form.instance.restaurant = get_object_or_404(Restaurant, pk=self.kwargs['pk']) # 投稿されたレビューに対象の店舗を関連付ける
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy('foodconnections:detail', kwargs={'pk': self.kwargs.get('pk')})
+    
+""" レビューの削除 """  
+class ReviewDeleteView(generic.DeleteView):
+    model = Review
+    template_name = 'foodconnections/review_comfirm_delete.html'
+    context_object_name = 'review'
+    success_url = reverse_lazy('foodconnections:my_page')
+
+    def delete(self, request, *args, **kwargs):
+        delete_instance = self.get_object()
+        messages.success(self.request, 'レビューを削除しました。')
+        return super().delete(request, *args, **kwargs)
 
 """ 飲食店の詳細ページの作成 """
 class CreateView(LoginRequiredMixin, generic.edit.CreateView):
@@ -186,18 +198,6 @@ class DeleteView(generic.DeleteView):
         delete_instance = self.get_object()
         shop_name = delete_instance.name
         messages.success(self.request, f'"{ shop_name }"を削除しました。')
-        return super().delete(request, *args, **kwargs)
-
-""" レビューの削除 """  
-class ReviewDeleteView(generic.DeleteView):
-    model = Review
-    template_name = 'foodconnections/review_comfirm_delete.html'
-    context_object_name = 'review'
-    success_url = reverse_lazy('foodconnections:my_page')
-
-    def delete(self, request, *args, **kwargs):
-        delete_instance = self.get_object()
-        messages.success(self.request, 'レビューを削除しました。')
         return super().delete(request, *args, **kwargs)
     
 """ 生産者情報の編集 """    
