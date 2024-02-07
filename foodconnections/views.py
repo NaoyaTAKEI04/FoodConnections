@@ -29,6 +29,7 @@ class SearchResultsView(generic.ListView):
     model = Restaurant
     template_name = 'foodconnections/search_results.html'
     context_object_name = 'restaurant_list'
+    paginate_by = 3  # 1ページに表示するレストランの数
 
     def get_queryset(self):
         # GET パラメータから query（店名の検索キーワード）と prefecture（都道府県）を取得
