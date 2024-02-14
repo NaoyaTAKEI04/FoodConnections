@@ -8,7 +8,6 @@ from django.db.models import Avg, Q
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from myapp import settings_secret
 
 """ トップページの表示 """
 class TopPageView(View):
