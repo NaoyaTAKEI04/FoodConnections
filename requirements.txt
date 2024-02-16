@@ -9,12 +9,16 @@ Django==3.2.23
 django-allauth==0.53.1
 django-crispy-forms==1.13.0
 django-environ==0.11.2
+gunicorn==21.2.0
 idna==3.6
+importlib-metadata==4.8.3
 oauthlib==3.2.2
+packaging==21.3
 Pillow==8.4.0
 psycopg2-binary==2.9.8
 pycparser==2.21
 PyJWT==2.4.0
+pyparsing==3.0.7
 python-decouple==3.8
 python3-openid==3.2.0
 pytz==2023.3.post1
@@ -24,3 +28,4 @@ sqlparse==0.4.4
 typing-extensions==4.1.1
 urllib3==1.26.18
 whitenoise==5.3.0
+zipp==3.6.0
