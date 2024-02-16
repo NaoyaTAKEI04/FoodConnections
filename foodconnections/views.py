@@ -8,6 +8,7 @@ from django.db.models import Avg, Q
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.conf import settings
 
 """ トップページの表示 """
 class TopPageView(View):
@@ -134,7 +135,7 @@ class DetailView(generic.DetailView):
         context['farmer_data'] = farmer_data
 
         #GoogleMapのAPIキーを取得
-        api_key = settings_secret.GOOGLE_MAPS_API_KEY
+        api_key = settings.GOOGLE_MAPS_API_KEY
         context['api_key'] = api_key
 
         return context
