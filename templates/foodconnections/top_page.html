@@ -34,7 +34,11 @@
 <div class="col-sm-6">
     <a href="{% url 'foodconnections:category_list' category.id %}">
     <div class="card bg-dark my-3">
-        <img src="{{ category.image.url }}" class="card-img" width=50% height="200" alt="{{ category.name }}">
+        {% if category.image %}
+            <img src="{{ category.image.url }}" class="card-img" width=50% height="200" alt="{{ category.name }}">
+        {% else %}
+            <img src="{% static 'images/no_image.png' %}" class="card-img" width=50% height="200" alt="No Image">
+        {% endif %}
         <div class="card-img-overlay">
             <h3 class="card-title text-light font-weight-bold">{{ category.name }}</h5>
         </div>

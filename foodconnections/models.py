@@ -5,7 +5,7 @@ from users.models import CustomUser
 class Category(models.Model):
     name = models.CharField(verbose_name='カテゴリー', max_length=100)
     auther = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='投稿者')
-    image = models.ImageField(verbose_name='画像', upload_to='category_images/', default='restaurant_images/no_image.png', blank=True, null=True)
+    image = models.ImageField(verbose_name='画像', upload_to='category_images/', blank=True, null=True)
 
     def __str__(self):
         return self.name
