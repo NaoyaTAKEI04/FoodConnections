@@ -5,7 +5,7 @@ from users.models import CustomUser
 class Category(models.Model):
     name = models.CharField(verbose_name='カテゴリー', max_length=100)
     auther = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='投稿者')
-    image = models.ImageField(verbose_name='画像', upload_to='category_images/', blank=True, null=True)
+    image = models.ImageField(verbose_name='画像', upload_to='category_images/', default='restaurant_images/no_image.png', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -31,7 +31,7 @@ class Restaurant(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name='投稿者')
     messages = models.TextField(verbose_name='店長コメント', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name='カテゴリー')
-    image = models.ImageField(verbose_name='画像', upload_to='restaurant_images/',default='restaurant_images/no_image.png', blank=True, null=True)
+    image = models.ImageField(verbose_name='画像', upload_to='restaurant_images/', default='restaurant_images/no_image.png', blank=True, null=True)
     catchphrase = models.CharField(verbose_name='キャッチコピー', max_length=30, blank=True, null=True)
     comment = models.TextField(verbose_name='店舗概要', blank=True, null=True)
     recommend = models.BooleanField(verbose_name='おすすめ店舗', default=False)
