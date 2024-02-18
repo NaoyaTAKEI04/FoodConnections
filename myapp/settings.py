@@ -136,7 +136,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static", "CSS"),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -172,6 +173,6 @@ LOGIN_REDIRECT_URL = '/foodconnections/' # ログイン後のリダイレクト�
 ACCOUNT_LOGOUT_REDIRECT_URL = '/foodconnections/' # ログアウト後のリダイレクト先
 ACCOUNT_LOGOUT_ON_GET = True # ログアウトをクリックしたら確認画面を経由しないで直接ログアウトする
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # メール配信をコンソールに返す設定
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # メール配信をコンソールに返す設定
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
