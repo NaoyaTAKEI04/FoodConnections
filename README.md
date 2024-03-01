@@ -45,7 +45,7 @@ https://foodconnections.onrender.com/foodconnections/
 
 <br />
 
-## 機能一覧
+## 主要画面一覧
 | トップ画面 |　ログイン画面 |
 | ---- | ---- |
 | ![FireShot Capture 001 - FoodConnections - 127 0 0 1](https://github.com/NaoyaTAKEI04/FoodConnections/assets/155603182/0e56ce5d-f676-4462-9896-eabbe8b8c56f) | ![FireShot Capture 009 - FoodConnections - 127 0 0 1](https://github.com/NaoyaTAKEI04/FoodConnections/assets/155603182/bd646da5-ff6d-46eb-808f-ecc8c7144384) |
@@ -71,3 +71,31 @@ https://foodconnections.onrender.com/foodconnections/
 | ![FireShot Capture 006 - FoodConnections - 127 0 0 1](https://github.com/NaoyaTAKEI04/FoodConnections/assets/155603182/79c313e3-8c0f-4c58-bb37-fb4594ef5dc0) |
 | 店舗詳細ページに表示する情報を登録・編集できます。郵便番号を入力すると自動で住所が入力されます。 |
 
+<br />
+
+## 機能一覧
+
+- ユーザー登録、ログイン機能
+- ユーザー情報の編集、削除機能
+- レビュー投稿機能
+- 画像投稿機能
+- ページネーション機能
+- 検索機能
+
+<br />
+
+## 使用技術
+
+| Category          | Technology Stack                                     |
+| ----------------- | --------------------------------------------------   |
+| Frontend          | HTML, CSS, JavaScript, jQuery, Bootstrap             |
+| Backend           | Python, Django                                       |
+| Database          | SQLite   　　　　　　　　　　　　　　                                     |
+| API               | Google Maps API                                      |
+| etc.              | Git, GitHub, YubinBango                              |
+
+<br />
+
+## ER図
+
+![graph-model](https://github.com/NaoyaTAKEI04/FoodConnections/assets/155603182/d478a558-3388-4114-aab3-0c382d8437e7)
